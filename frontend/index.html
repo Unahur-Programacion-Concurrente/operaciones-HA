@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend con API</title>
+</head>
+<body>
+    <h1>Registro de Gastos</h1>
+    <form id="gastoForm">
+        <input type="text" id="descripcion" placeholder="Descripción" required>
+        <input type="text" id="cantidad" placeholder="Cantidad" required>
+        <input type="text" id="categoria" placeholder="Categoría" required>
+        <input type="date" id="fecha" required>
+        <button type="submit">Agregar Gasto</button>
+    </form>
+    <h2>Gastos</h2>
+    <ul id="gastosList"></ul>
+
+    <h2>Resumen por Categoría</h2>
+    <ul id="resumenList"></ul>
+
+    <script src="app.js"></script>
+</body>
+</html>
