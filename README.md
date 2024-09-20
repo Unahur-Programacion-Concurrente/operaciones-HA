@@ -51,7 +51,7 @@ Clonar el repositorio con el código de la aplicación en el directorio /var/www
     ```
     4.3. Cambiar temporalmente usuario y grupo dueño del directorio destino
     ```bash
-    sudo chown -R $USER:www-data /var/www/expense-tracker-app/backend
+    sudo chown -R $USER:www-data /var/www/expense-tracker-app
     ````
 
 5. Instalar las Dependencias del Backend
