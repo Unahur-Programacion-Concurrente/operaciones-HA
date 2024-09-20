@@ -15,7 +15,7 @@
 
     2.2. Instalar node.js y npm
     ```bash
-    curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+    curl -fsSL https://deb.nodesource.com/setup_20.x | sudo bash -
     sudo apt install -y nodejs
     ```
     2.3. Verificar la instalación:
