@@ -1,0 +1,19 @@
+# Node modules
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Temp files
+*.tmp
+*.swp
+
+# Operating system files
+.DS_Store
+Thumbs.db

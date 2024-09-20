@@ -1,0 +1,27 @@
+# Node modules
+node_modules/
+ 
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Temp files
+*.tmp
+*.swp
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Build outputs
+dist/
+build/
+
+# Dependency directories for frontend and backend
+frontend/node_modules/
+backend/node_modules/
+
+# Ignore lockfiles, if you don't want to commit them
+package-lock.json
+yarn.lock
