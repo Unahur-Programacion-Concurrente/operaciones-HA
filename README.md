@@ -46,76 +46,54 @@ Clonar el repositorio con el código de la aplicación en el directorio /var/www
     sudo git clone https://github.com/Unahur-Programacion-Concurrente/operaciones-HA.git expense-tracker-app
     ```
 5. Instalar las Dependencias del Backend
+
     5.1. Cambiar al directorio del backend
     ```bash
     cd expense-tracker-app/backend
     ```
     5.2. Instalar las dependencias
+    ```bash
     npm install
     ```
 6. Configurar Variables de Entorno con dotenv
-Instala el paquete dotenv para manejar las variables de entorno:
+Crear un archivo .env en el directorio del backend para almacenar las variables de entorno.
 
-bash
-Copy code
-npm install dotenv
-Crea un archivo .env en el directorio del backend para almacenar tus variables de entorno (como la URI de MongoDB):
+    5.1. Cambiar al directorio del backend
+    ```bash
+    cd expense-tracker-app/backend
+    ```
+    5.3 Editar el archivo ```.env```
+    ```bash
+    nano .env
+    ````
+    Agregar las siguientes variables de entorno (ajustando los valores correspondientes a su entorno):
+    ```bash
+    MONGO_URI=mongodb://<IP_SERVER_MONGODB>:27017/expense-tracker
+    PORT=3000
+    SERVER_IP=<IP_APP_SERVER>  # Reemplazar con la IP del servidor
+    NODE_ENV=production
+    ````
 
-bash
-Copy code
-nano .env
-Agrega las siguientes variables de entorno (ajustando los valores según tu entorno):
+7. Instalar PM2 para Manejar el Backend
+PM2 es un administrador de procesos que permite mantener la aplicación corriendo en segundo plano. 
+    
+    7.1. Instalar PM2:
+    ```bash
+    sudo npm install pm2 -g
+    ```
+    7.2. Arrancar PM2:
+    ```bash
+    pm2 start index.js --name "expense-tracker-backend"
+    ```
 
-bash
-Copy code
-MONGO_URI=mongodb://<IP_SERVER_MONGODB>:27017/expense-tracker
-NODE_ENV=production
-7. Modificar el Código del Backend para Usar dotenv
-Asegúrate de que el backend esté configurado para leer las variables de entorno. Edita tu archivo index.js del backend para cargar el archivo .env al inicio usando dotenv:
+    7.3 Configuar para que PM2 se inicie automáticamente después de reiniciar el servidor:
+    ```bash
+    pm2 startup
+    pm2 save
+    ```
 
-javascript
-Copy code
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const app = express();
-const port = process.env.PORT || 3000;
+8. PROBAR BE ??
 
-// Conectar a MongoDB usando la variable de entorno
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}).then(() => {
-    console.log("Conectado a MongoDB");
-}).catch(err => {
-    console.error("Error al conectar a MongoDB", err);
-});
-
-// Middleware para parsear JSON
-app.use(express.json());
-
-// Habilitar CORS
-app.use(cors());
-
-// Rutas (tu código existente)
-
-app.listen(port, () => {
-    console.log(`Backend escuchando en http://localhost:${port}`);
-});
-8. Instalar PM2 para Manejar el Backend
-PM2 es un administrador de procesos que te permite mantener la aplicación corriendo en segundo plano. Instálalo y usa PM2 para ejecutar tu aplicación en modo producción:
-
-bash
-Copy code
-sudo npm install pm2 -g
-pm2 start index.js --name "expense-tracker-backend"
-Para que PM2 se inicie automáticamente después de reiniciar el servidor:
-
-bash
-Copy code
-pm2 startup
-pm2 save
 9. Instalar y Configurar Nginx
 Ahora, instala Nginx para servir el frontend y hacer de proxy inverso para el backend.
 
@@ -130,6 +108,7 @@ bash
 Copy code
 sudo systemctl enable nginx
 sudo systemctl start nginx
+
 10. Configurar Nginx como Proxy Inverso
 Edita el archivo de configuración por defecto de Nginx para configurarlo como proxy inverso para el backend y para servir el frontend.
 
@@ -202,3 +181,4 @@ Node.js: Instalado y utilizado para el backend.
 PM2: Utilizado para gestionar el backend en modo producción.
 Nginx: Configurado como proxy inverso y para servir archivos estáticos del frontend.
 dotenv: Utilizado para manejar variables de entorno.
+

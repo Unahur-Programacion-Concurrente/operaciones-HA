@@ -1,11 +1,21 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-// Conectar a MongoDB
-mongoose.connect('mongodb://localhost:27017/expense-tracker');
+// Conectar a MongoDB usando la variable de entorno
+const mongoUri = process.env.MONGO_URI;
+
+mongoose.connect(mongoUri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}).then(() => {
+    console.log("Conectado a MongoDB");
+}).catch((err) => {
+    console.error("Error al conectar a MongoDB", err);
+});
 
 const GastoSchema = new mongoose.Schema({
     descripcion: String,
@@ -49,6 +59,7 @@ app.get('/api/resumen', async (req, res) => {
     res.json(resumen);
 });
 
-app.listen(port, () => {
-    console.log(`Backend escuchando en http://localhost:${port}`);
+app.listen(port, '0.0.0.0', () => {
+    const host = process.env.NODE_ENV === 'production' ? `http://${process.env.SERVER_IP}:${port}` : `http://localhost:${port}`;
+    console.log(`Backend escuchando en ${host}`);
 });
