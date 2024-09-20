@@ -170,9 +170,39 @@ Instalar Nginx para servir el frontend y hacer de proxy inverso para el backend.
     ````
 
 11. Instalar Dependencias y Compilar el Frontend
-Si el frontend requiere compilación (por ejemplo, si usas React)
 
-    11.1 Instalar las dependencias y generar el build de producción:
+
+
+    11.1 Crear el archivo webpack.config.js en el directorio del frontend. 
+    Este archivo se debe ubicar en la raíz de tu proyecto frontend, donde están los archivos ```app.js```, ```index.html```, y ```package.json```.
+
+    ```bash
+    cd /var/www/expense-tracker-app/frontend
+    nano webpack.config.js
+    ````
+    Agregar la siguiente configuración:
+    ```javascript
+    const path = require('path');
+    const HtmlWebpackPlugin = require('html-webpack-plugin');  // Importar el plugin
+
+    module.exports = {
+    entry: './app.js',  // Archivo de entrada principal
+    output: {
+        path: path.resolve(__dirname, 'build'),  // Carpeta de salida
+        filename: 'bundle.js',  // Archivo JS de salida
+    },
+    mode: 'production',  // Modo de producción
+    plugins: [
+        new HtmlWebpackPlugin({
+        template: './index.html',  // Plantilla HTML (si tienes una)
+        filename: 'index.html',    // Nombre del archivo generado
+        }),
+    ],
+    };
+    ````
+
+    
+    11.2. Instalar las dependencias y generar el build de producción:
     ```bash
     cd ../frontend
     npm install
