@@ -13,7 +13,8 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html',
-      filename: 'index.html',
+      filename: 'index.html',    // Nombre del archivo generado en build
+      inject: 'body',
     }),
     new webpack.DefinePlugin({
       'process.env.API_URL': JSON.stringify(process.env.API_URL),  // Definir API_URL
