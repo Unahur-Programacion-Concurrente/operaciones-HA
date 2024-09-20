@@ -330,39 +330,40 @@ En el servidor LoadBalancer realizar los siguientes pasos de instalación con el
 
 (ref: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/)
 
-En el servidor mongodbX
+### En el servidor mongodbX
 
-Importar la clave pública de MongoDB:
+1. Importar la clave pública de MongoDB:
 ```
 curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | \
    sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg \
    --dearmor
 ```
-Agregar el repositorio de MongoDB (crear archivo .list)
+2. Agregar el repositorio de MongoDB (crear archivo .list)
 ```
 echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
 ```
-Actualizar el índice de paquetes
+3. Actualizar el índice de paquetes
 ```
 sudo apt-get update
 ```
-Instalar MongoDB
-
+4. Instalar MongoDB
+```
 sudo apt-get install -y mongodb-org
+```
 
-Iniciar y habilitar el servicio MongoDB
+5. Iniciar y habilitar el servicio MongoDB
 ```
 sudo systemctl start mongod
 sudo systemctl status mongod
 sudo systemctl enable mongod
 ```
-Configurar MongoDB para aceptar conexiones remotas
+6. Configurar MongoDB para aceptar conexiones remotas
 
 Abrir el archivo de configuración con un editor de texto (por ejemplo, nano):
-
+```
 sudo nano /etc/mongod.conf
-
-Busca la sección # network interfaces y cambia la opción bindIp para que incluya la IP del servidor. Si deseas permitir conexiones desde cualquier IP, usa 0.0.0.0:
+```
+Busca la sección `# network interfaces` y cambia la opción bindIp para que incluya la IP del servidor. Si deseas permitir conexiones desde cualquier IP, usa 0.0.0.0:
 ```
 net:
   bindIp: 0.0.0.0
@@ -371,31 +372,42 @@ net:
 
 Guarda el archivo y cierra el editor.
 
-Reinicia MongoDB para aplicar los cambios:
-
+7. Reinicia MongoDB para aplicar los cambios:
+```
 sudo systemctl restart mongod
+```
 
-Probar el servicio mongod localmente:
+8. Probar el servicio mongod localmente:
+```
 mongosh
 
 test> show dbs
+```
 
-Probar el servicio mongod en forma remota:
-Instalar el cliente mongoDB en la máquina local o en alguno de los otros dos servidores (appserverX o nagiosX):
-Agrega el repositorio de MongoDB
-wget -qO - https://www.mongodb.org/static/pgp/server-7.0.asc | sudo apt-key add -
+8. Probar el servicio mongod en forma remota:
+Instalar el cliente mongoDB en la máquina local o en alguno de los otros servidores:
 
-echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+    8.1. Agrega el repositorio de MongoDB
+    ```  
+    wget -qO - https://www.mongodb.org/static/pgp/server-7.0.asc | sudo apt-key add -
+    ```
+    ``` 
+    echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+    ```
 
-Actualizar la lista de paquetes
-sudo apt update
+    8.2 Actualizar la lista de paquetes
+    ``` 
+    sudo apt update
+    ```
+    8.3 Instalar el cliente MongoDB
+    ```
+    sudo apt install mongodb-mongosh
+    ```
+    
+    8.4 Probar la conexión con MongoDB externo:
+    ```
+    mongosh "mongodb://<mongodbX-IP>:27017"
 
-Instalar el cliente MongoDB
-sudo apt install mongodb-mongosh
-
-Probar la conexión con MongoDB externo:
-mongosh "mongodb://<mongodbX-IP>:27017"
-
-test> show dbs
-
+    test> show dbs
+    ```
 
