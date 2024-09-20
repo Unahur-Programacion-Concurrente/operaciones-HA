@@ -109,7 +109,6 @@ Desde un browser abrir la URL del backend:
     ```
 
 9. Instalar Nginx
-
 Instalar Nginx para servir el frontend y hacer de proxy inverso para el backend.
 
     9.1. Instalar Nginx:
@@ -121,7 +120,7 @@ Instalar Nginx para servir el frontend y hacer de proxy inverso para el backend.
     sudo systemctl enable nginx
     sudo systemctl start nginx
     ```
-    9.3 PROBAR NGINX?
+    9.3 PROBAR NGINX
 
 10. Configurar Nginx como Proxy Inverso
     Editar el archivo de configuración por defecto de Nginx para configurarlo como proxy inverso para el backend y para servir el frontend.
