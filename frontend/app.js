@@ -8,7 +8,7 @@ document.getElementById('gastoForm').addEventListener('submit', async (e) => {
 
     const gasto = { descripcion, cantidad, categoria, fecha };
 
-    await fetch('http://localhost:3000/api/gastos', {
+    await fetch(`${process.env.API_URL}/api/gastos`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -22,7 +22,7 @@ document.getElementById('gastoForm').addEventListener('submit', async (e) => {
 });
 
 async function cargarGastos() {
-    const response = await fetch('http://localhost:3000/api/gastos');
+    const response = await fetch(`${process.env.API_URL}/api/gastos`);
     const gastos = await response.json();
     const gastosList = document.getElementById('gastosList');
     gastosList.innerHTML = '';
@@ -34,7 +34,7 @@ async function cargarGastos() {
 }
 
 async function cargarResumen() {
-    const response = await fetch('http://localhost:3000/api/resumen');
+    const response = await fetch(`${process.env.API_URL}/api/resumen`);
     const resumen = await response.json();
     const resumenList = document.getElementById('resumenList');
     resumenList.innerHTML = '';
