@@ -120,8 +120,11 @@ Instalar Nginx para servir el frontend y hacer de proxy inverso para el backend.
     sudo systemctl enable nginx
     sudo systemctl start nginx
     ```
-    9.3 PROBAR NGINX
-
+    9.3 Probar nginx
+    Con un browser abrir la IP del App Server
+    ```arduino
+    http://<IP_APP_SERVER>
+    ```
 10. Configurar Nginx como Proxy Inverso
     Editar el archivo de configuración por defecto de Nginx para configurarlo como proxy inverso para el backend y para servir el frontend.
 
