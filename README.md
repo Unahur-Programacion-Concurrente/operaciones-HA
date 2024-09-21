@@ -282,7 +282,7 @@ En el servidor LoadBalancer realizar los siguientes pasos de instalación con el
 
                   listen     80;
                   location / {
-                        proxy\_pass http://website;
+                        proxy_pass http://website;
                         }
 
       }
